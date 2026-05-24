@@ -228,6 +228,8 @@ class TitleScene extends Phaser.Scene {
         this.input.on('pointerdown', function () {
             if (self.startTriggered) return;
             self.startTriggered = true;
+            window.GAME_START_TIME = performance.now();
+            if (typeof gtag === 'function') gtag('event', 'game_start', { game_name: window.GAME_NAME || 'Magnetic-Mission' });
             // Initialize audio on first user gesture
             if (window.AudioManager) {
                 window.AudioManager.init();

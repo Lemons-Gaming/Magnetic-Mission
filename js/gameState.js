@@ -53,6 +53,7 @@ window.GameState = {
     startAct(act) {
         this.currentAct = act;
         this.timeRemaining = this.actTimeStamps[act] || this.timeRemaining;
+        if (typeof gtag === 'function') gtag('event', 'act_started', { game_name: window.GAME_NAME || 'Magnetic-Mission', act: act });
     },
 
     addEvidence(evidence) {

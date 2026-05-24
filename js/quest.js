@@ -559,7 +559,17 @@
                     this.badges.push('complete');
                     this.emit('badge_earned', { badgeId: 'complete' });
                 }
+                if (typeof gtag === 'function') {
+                    var timePlayed = Math.round((performance.now() - (window.GAME_START_TIME || performance.now())) / 1000);
+                    gtag('event', 'game_completed', {
+                        game_name: window.GAME_NAME || 'Magnetic-Mission',
+                        time_played_seconds: timePlayed,
+                        badges_earned: this.badges.length
+                    });
+                }
             }
+
+            if (typeof gtag === 'function') gtag('event', 'quest_completed', { game_name: window.GAME_NAME || 'Magnetic-Mission', quest_id: id, act: quest.act });
 
             this.emit('quest_completed', { quest: quest });
 
